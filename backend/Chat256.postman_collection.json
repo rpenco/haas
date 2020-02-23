@@ -1,0 +1,524 @@
+{
+	"info": {
+		"_postman_id": "d5a5623b-d3be-4d1b-a28d-91c114f9b506",
+		"name": "Chat256",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET generateDummyHash",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "957babbe-0289-449c-b544-4c901355e0d6",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Hash should be '00000000000000000000000000000000'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.hash).to.eql('00000000000000000000000000000000');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "faketoken",
+						"description": "Place here a valid token"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:49160/api/generateDummyHash",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"generateDummyHash"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET calculateHash (md5, 1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45c98087-825b-49b2-a07b-02dbdfed85da",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Hash should be an hash\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.hash).to.eql('efa2e29e0163e3c120cb295902602395');",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "faketoken"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": \"haas is awesome\",\n\t\"algorithm\": \"md5\",\n\t\"iterations\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/calculateHash",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"calculateHash"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET calculateHash (sha1)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba030d8c-1410-42bd-90d3-04cf0fb34973",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Hash should be an hash\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.hash).to.have.length(40);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "faketoken"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": \"haas is awesome\",\n\t\"algorithm\": \"sha1\",\n\t\"iterations\": \"2\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/calculateHash",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"calculateHash"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET calculateHash (sha256)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46dfec80-a4aa-4dbf-a007-e4e74840f5bb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Hash should be an hash\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.hash).to.have.length(64);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "faketoken"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": \"haas is awesome\",\n\t\"algorithm\": \"sha256\",\n\t\"iterations\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/calculateHash",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"calculateHash"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET calculateHash (other) failed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d9f69aa-0e65-498e-8603-1dd87c674643",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.response.to.have.status(400);",
+							"    pm.expect(jsonData.status).to.eql(400);",
+							"    pm.expect(jsonData.message).not.to.be.empty;",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "faketoken"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"data\": \"haas is awesome\",\n\t\"algorithm\": \"other\",\n\t\"iterations\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/calculateHash",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"calculateHash"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c8007fa-815f-47e4-b207-b3837aacf621",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"romain\",\n\t\"password\": \"romain\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] register (invalid password)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "082d6341-918b-42cd-b4a6-096c4fc7e6c7",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"romain\",\n\t\"password\": \"hello\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] register (invalid username)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "082d6341-918b-42cd-b4a6-096c4fc7e6c7",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"\",\n\t\"password\": \"hello123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] register (already exists)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5a73d8f-5f80-4590-a6ec-051a67b62ef2",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 500\", function () {",
+							"    pm.response.to.have.status(500);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"romain\",\n\t\"password\": \"hello123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2eeb2341-7682-4cc0-8587-a7ab6b606b2f",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Login should return an username\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.username).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"Login should return a token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.token).to.have.length(64);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"romain\",\n\t\"password\": \"romain\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] login (invalid username)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "61f50048-0b75-4490-a9f4-3ad0e913fce3",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 401\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"notfound\",\n\t\"password\": \"hello123\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:49160/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "49160",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

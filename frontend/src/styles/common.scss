@@ -1,0 +1,105 @@
+/**
+Common contains the styles of the main components of the application (input, button)
+ */
+
+@import "./theme.scss";
+
+
+/**
+ Button
+ */
+.btn {
+  border: 0;
+  border-radius: $border-radius;
+  color: $theme-alt-color;
+  padding: $padding $padding*2;
+  font-size: 18px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.primary {
+    background: $theme-color;
+
+    &:hover {
+      background: lighten($theme-color, 20%);
+    }
+  }
+}
+
+/**
+Link
+ */
+a {
+  color: $theme-color;
+  text-decoration: none;
+
+  &:hover {
+    color: lighten($theme-color, 20%);
+    text-decoration: underline;
+  }
+}
+
+/**
+Input text, password, number and Select
+ */
+input[type=text], input[type=password], input[type=number], select {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: $padding;
+  margin: $padding;
+}
+
+/**
+  Main title
+ */
+h1 {
+  margin-bottom: 0;
+  padding: 0;
+}
+
+/**
+Second title
+ */
+h2 {
+  font-weight: normal;
+  font-size: 1em;
+}
+
+/**
+ Error notification
+ */
+.errors {
+  color: $error-color;
+  border-radius: $border-radius;
+  border: 1px solid $error-color;
+  padding: $padding;
+}
+
+/**
+Simple 'center screen' of an element
+ */
+.center-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 50vh;
+}
+
+/**
+Form with label
+ */
+.form-control {
+  .label {
+    display: block;
+    text-align: left;
+    padding: $padding;
+
+    .required {
+      color: $error-color;
+    }
+  }
+}

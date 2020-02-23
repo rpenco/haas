@@ -1,0 +1,54 @@
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+  - node_modules/
+  - build/
+
+before_script:
+- npm install
+- npm run build-css
+
+
+stages:
+- test
+- build
+- deploy
+
+# Test application
+test:
+  stage: test
+  tags:
+  - node
+  script:
+  - npm run test
+
+# Bundle application
+client:
+  stage: build
+  tags:
+  - node
+  script:
+  - npm run build
+  #  cache:
+  #    paths:
+  #    - bundle.js
+  artifacts:
+    name: "chat256_frontend-$CI_COMMIT_REF_NAME-$CI_COMMIT_SHA"
+    paths:
+    - build/
+
+# Create and push docker image on private registry
+# 'registry.penco.fr/chat256frontend:[develop|master|..]'
+registry:
+  stage: deploy
+  tags:
+  - docker
+  before_script:
+  - ''
+  script:
+  - docker build -t chat256frontend:$CI_COMMIT_REF_NAME .
+  - docker tag chat256frontend:$CI_COMMIT_REF_NAME $REGISTRY_URI/chat256frontend:$CI_COMMIT_REF_NAME
+  - docker login $REGISTRY_URI -u $REGISTRY_USER -p $REGISTRY_PASS
+  - docker push $REGISTRY_URI/chat256frontend:$CI_COMMIT_REF_NAME
+  allow_failure: true

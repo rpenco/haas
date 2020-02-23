@@ -1,0 +1,28 @@
+@import "../../styles/theme.scss";
+
+nav.navbar {
+  border-bottom: 2px solid $border-color;
+  .logo {
+    height: 50px;
+    width: 300px;
+    background: url("/logo.png") no-repeat center;
+    background-size: contain;
+  }
+
+  .profile {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 34px;
+
+    .button{
+      display: inline-block;
+      padding: 11px $padding $padding $padding;
+      cursor: pointer;
+
+      &.disconnect{
+        color: $error-color;
+      }
+    }
+  }
+}

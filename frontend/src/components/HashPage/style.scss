@@ -1,0 +1,10 @@
+@import "../../styles/theme.scss";
+@import "../../styles/common.scss";
+
+.hash-result {
+  p {
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+    padding: $padding;
+  }
+}
